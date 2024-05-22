@@ -7,11 +7,11 @@ using namespace std;
  
 signed main()
 {
-    
     ios::sync_with_stdio(0);
     cin.tie(0);
-    int n;
-    cin>>n;
+    
+    int n = 100;
+    
     vector <bool> v(n+1, true);
     for (int i = 2; i <= n; i++)
     {
@@ -23,13 +23,14 @@ signed main()
             
         }
     }
+    vector<int> prime;
+
     for (int i = 2; i <= n; i++)
     {
-        if(v[i]== true) cout<<i<<endl;
+        if(v[i]== true) prime.push_back(i);
     }
-    
-    
-    
+    for(auto a: prime) cout<<a<<" ";
+
     
     return 0;
 }
