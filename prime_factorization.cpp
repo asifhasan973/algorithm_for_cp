@@ -1,38 +1,54 @@
-#include<bits/stdc++.h>
- 
-#define int long long
-#define endl '\n'
-
+#include <iostream>
+#include <vector>
 using namespace std;
- 
-signed main()
-{
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    
-    int n;
-    cin>>n;
-    map<int,int> fact;
-    for (int i = 2; i <= n; i++)
-    {
-        if(n%i==0){
-            while (n%i==0)
-            {
-                fact[i]++;
-               n/=i; 
-            }
 
-            
+
+void computeSPF(vector<int> &spf, int maxN) {
+    for (int i = 1; i <= maxN; i++) {
+        spf[i] = i; 
+    }
+
+    for (int i = 2; i * i <= maxN; i++) {
+        if (spf[i] == i) { 
+            for (int j = i * i; j <= maxN; j += i) {
+                if (spf[j] == j) {
+                    spf[j] = i;
+                }
+            }
         }
-        
-        
     }
-     if (n > 1) {
-        fact[n]++;
+}
+
+
+vector<int> getPrimeFactors(int x, const vector<int> &spf) {
+    vector<int> primeFactors;
+    while (x != 1) {
+        primeFactors.push_back(spf[x]);
+        x /= spf[x];
     }
-    for(auto [x,y] : fact) cout<<x<<" "<<y<<endl;
+    return primeFactors;
+}
+
+int main() {
+    int maxN = 100000; 
+    vector<int> spf(maxN + 1);
+
+   
+    computeSPF(spf, maxN);
+
+
+    int num;
+   
+    cin >> num;
+
+   
+        vector<int> primeFactors = getPrimeFactors(num, spf);
+       
+        for (int factor : primeFactors) {
+            cout << factor << " ";
+        }
+        cout << endl;
     
-    
+
     return 0;
 }
- 
